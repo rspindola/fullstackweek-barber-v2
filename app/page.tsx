@@ -4,11 +4,10 @@ import { Button } from "./_components/ui/button"
 import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
-import { Badge } from "./_components/ui/badge"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import BarbershopItem from "./_components/barbershop-item"
 import { db } from "./_lib/prisma"
 import { quickSearchOptions } from "./_constants/search"
+import BookingItem from "./_components/booking-item"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({}) // This is a Prisma query all barbershops
@@ -61,32 +60,8 @@ const Home = async () => {
           />
         </div>
 
-        {/* BOOKING FIELD */}
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Agendamentos
-        </h2>
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            {/* LEFT */}
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
-                </Avatar>
-                <p className="text-sm">Barbearia FSW</p>
-              </div>
-            </div>
-
-            {/* RIGHT */}
-            <div className="solid flex flex-col items-center justify-center border border-l-2 px-5">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20:00</p>
-            </div>
-          </CardContent>
-        </Card>
+        {/* BOOKING-ITEM FIELD */}
+        <BookingItem />
 
         {/* RECOMMENDED FIELD */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
