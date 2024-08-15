@@ -9,6 +9,8 @@ import Search from "./_components/search"
 import Link from "next/link"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./_lib/auth"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
@@ -47,8 +49,16 @@ const Home = async () => {
 
       <div className="p-5">
         {/* NAME FIELD */}
-        <h2 className="text-xs font-bold">Olá, Ghabriel!</h2>
-        <p>Segunda-feira, 05 de agosto.</p>
+        <h2 className="text-xs font-bold">
+          Olá, {session?.user ? session?.user?.name : "bem vindo"}!
+        </h2>
+        <p>
+          <span className="capitalize">
+            {format(new Date(), "EEEE, dd", { locale: ptBR })}
+          </span>
+          <span>&nbsp;de&nbsp;</span>
+          <span>{format(new Date(), "MMMM", { locale: ptBR })}</span>
+        </p>
 
         {/* SEARCH INPUT*/}
         <div className="mt-6">
@@ -88,9 +98,13 @@ const Home = async () => {
         </div>
 
         {/* BOOKING-ITEM FIELD */}
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Agendamentos
-        </h2>
+        {confirmedBookings.length > 0 && (
+          <>
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+              Agendamentos
+            </h2>
+          </>
+        )}
         <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {confirmedBookings.map((booking) => (
             <BookingItem key={booking.id} booking={booking} />
