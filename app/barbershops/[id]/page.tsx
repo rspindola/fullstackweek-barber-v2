@@ -98,8 +98,8 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
           {barbershop.services.map((service) => (
             <ServiceItem
               key={service.id}
-              service={service}
-              barbershop={barbershop}
+              service={JSON.parse(JSON.stringify(service))} // JSON.parse(JSON.stringify(service)) is a workaround to avoid Prisma object mutation error when using Decimal type
+              barbershop={JSON.parse(JSON.stringify(barbershop))}
             />
           ))}
         </div>

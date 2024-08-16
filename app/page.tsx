@@ -105,7 +105,10 @@ const Home = async () => {
             </h2>
             <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
               {confirmedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
+                <BookingItem
+                  key={booking.id}
+                  booking={JSON.parse(JSON.stringify(booking))} // JSON.parse(JSON.stringify(booking)) is a workaround to avoid Prisma object mutation error when using Decimal type
+                />
               ))}
             </div>
           </>
